@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  * @author yaohwu
  * created by yaohwu at 2020/7/24 20:01
  */
-public class EmptyCallAdvisor {
+public class EmptyTemplateCallAdvisor {
 
     public static String a = "A";
 
