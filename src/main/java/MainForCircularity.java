@@ -34,6 +34,11 @@ public class MainForCircularity {
 
         // if you comment out this line, the Bike$Wheel#say() will not be advised by actual @{code CallAdvisor}
         emptyAdvisorJustForClassLoad(instrumentation);
+        // if you comment out this line, the Bike$Wheel#WheelInner#say() will not be advised by actual @{code CallAdvisor}
+        emptyAdvisorJustForClassLoad(instrumentation);
+
+        System.out.println("after empty");
+        showLoadedClass(instrumentation);
 
         AgentBuilder.Identified.Extendable extendable = null;
         ResettableClassFileTransformer resettable = null;

@@ -9,13 +9,16 @@ import java.lang.reflect.Method;
  * @author yaohwu
  * created by yaohwu at 2020/7/24 20:01
  */
-public class EmptyCallAdvisor {
+public class LocalParaCallAdvisor {
+
+    public static String a = "A";
 
     @Advice.OnMethodEnter
     public static void onMethodEnter(@Advice.This(typing = Assigner.Typing.DYNAMIC) Object origin,
                                      @Advice.Origin Method method,
                                      @Advice.AllArguments(typing = Assigner.Typing.DYNAMIC) Object[] arguments) {
         // do nothing
+        System.out.println(a);
     }
 
     @Advice.OnMethodExit(onThrowable = Throwable.class)
@@ -25,5 +28,6 @@ public class EmptyCallAdvisor {
                                     @Advice.Return(readOnly = true, typing = Assigner.Typing.DYNAMIC) Object ret,
                                     @Advice.Thrown(readOnly = true, typing = Assigner.Typing.DYNAMIC) Throwable e) {
         // do nothing
+        System.out.println(a);
     }
 }

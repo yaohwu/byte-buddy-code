@@ -28,9 +28,29 @@ public class Bike {
     @MonitorSub
     public final class Wheel implements Cloneable {
 
+        private WheelInner wheelInner;
+
         @MonitorSub
         public void say() {
             System.out.println("wo-wo!");
+            new WheelInner().say();
+        }
+
+        public void setWheelInner(WheelInner wheel) {
+            this.wheelInner = wheel;
+        }
+
+        public WheelInner getWheelInner() {
+            return wheelInner;
+        }
+
+        @MonitorSub
+        public final class WheelInner implements Cloneable {
+
+            @MonitorSub
+            public void say() {
+                System.out.println("to-to!");
+            }
         }
     }
 }

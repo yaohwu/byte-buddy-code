@@ -80,7 +80,7 @@ public enum VersionSupporterImpl implements VersionSupporter {
         private void init() {
             ClassLoader classLoader = getClassLoader();
             DynamicType.Unloaded<?> advisorType = new ByteBuddy()
-                    .redefine(EmptyCallAdvisor.class)
+                    .redefine(LocalParaCallAdvisor.class)
                     .name("xyz.yaohwu.dynamic.ActualEmptyAdvisor")
                     // make something
                     .initializer(new LoadedTypeInitializer.ForStaticField("a", "cool"))
