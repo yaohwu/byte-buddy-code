@@ -32,7 +32,7 @@ public class Main {
 
         System.out.println("before agent.");
         // never call new Persion() for loading Person.class and initializing Person.class to make interceptor work
-//        new Person().say();
+        new Person().say();
 
         AgentBuilder.Identified.Extendable iExtendable = null;
         ResettableClassFileTransformer iResettable = null;
@@ -43,12 +43,12 @@ public class Main {
                     return builder;
                 });
         iResettable = iExtendable.with(new Listener.WithTransformationsOnly(Listener.StreamWriting.toSystemOut()) {
-            @Override
-            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
-                super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
-                outputClassContentToFile(typeDescription, dynamicType, "interceptor");
-            }
-        })
+                    @Override
+                    public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
+                        super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
+                        outputClassContentToFile(typeDescription, dynamicType, "interceptor");
+                    }
+                })
                 // this code block is useless.
 //                .disableClassFormatChanges()
 //                .with(AgentBuilder.RedefinitionStrategy.REDEFINITION)
@@ -87,12 +87,12 @@ public class Main {
                     return innerBuilder;
                 });
         resettable = extendable.with(new Listener.WithTransformationsOnly(Listener.StreamWriting.toSystemOut()) {
-            @Override
-            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
-                super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
-                outputClassContentToFile(typeDescription, dynamicType, "advisor");
-            }
-        })
+                    @Override
+                    public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
+                        super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
+                        outputClassContentToFile(typeDescription, dynamicType, "advisor");
+                    }
+                })
                 .disableClassFormatChanges()
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .with(AgentBuilder.InitializationStrategy.NoOp.INSTANCE)
@@ -118,7 +118,7 @@ public class Main {
         new Person().say();
     }
 
-    private static void showLoadedClass(Instrumentation instrumentation) {
+    public static void showLoadedClass(Instrumentation instrumentation) {
         for (Class<?> aClass : instrumentation.getAllLoadedClasses()) {
             String name = aClass.getName();
             if (name.startsWith("xyz.yaohwu.another.world")) {
@@ -127,8 +127,8 @@ public class Main {
         }
     }
 
-    private static void outputClassContentToFile(TypeDescription typeDescription, DynamicType dynamicType, String name) {
-        File file = new File("/Users/yaohwu/finecode/recompile/recompile-code/" + typeDescription.getName() + "." + name + ".class");
+    public static void outputClassContentToFile(TypeDescription typeDescription, DynamicType dynamicType, String name) {
+        File file = new File("/Users/yaohwu/mycode/byte-buddy-demo/recompile-code/" + typeDescription.getName() + "." + name + ".class");
         try {
             if ((file.exists() && file.delete() && file.createNewFile()) || (!file.exists() && file.createNewFile())) {
                 try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
