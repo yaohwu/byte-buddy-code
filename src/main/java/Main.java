@@ -32,7 +32,7 @@ public class Main {
 
         System.out.println("before agent.");
         // never call new Persion() for loading Person.class and initializing Person.class to make interceptor work
-        new Person().say();
+//        new Person().say();
 
         AgentBuilder.Identified.Extendable iExtendable = null;
         ResettableClassFileTransformer iResettable = null;

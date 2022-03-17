@@ -18,6 +18,7 @@ public class CallAdvisor {
                                        @Advice.AllArguments(typing = Assigner.Typing.DYNAMIC) Object[] arguments) {
 
         System.out.println("call enter");
+        System.out.println(new MyCallable().call());
         return "message returned by method enter";
     }
 
