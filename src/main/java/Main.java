@@ -11,10 +11,8 @@ import xyz.yaohwu.dynamic.CallAdvisor;
 import xyz.yaohwu.dynamic.CallInterceptor;
 import xyz.yaohwu.tool.InstrumentationProvider;
 import xyz.yaohwu.tool.InstrumentationProviderImpl;
+import xyz.yaohwu.tool.OutputContent;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
@@ -46,7 +44,7 @@ public class Main {
                     @Override
                     public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
                         super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
-                        outputClassContentToFile(typeDescription, dynamicType, "interceptor");
+                        OutputContent.output(typeDescription, dynamicType, "interceptor");
                     }
                 })
                 // this code block is useless.
@@ -90,7 +88,7 @@ public class Main {
                     @Override
                     public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
                         super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
-                        outputClassContentToFile(typeDescription, dynamicType, "advisor");
+                        OutputContent.output(typeDescription, dynamicType, "advisor");
                     }
                 })
                 .disableClassFormatChanges()
@@ -124,20 +122,6 @@ public class Main {
             if (name.startsWith("xyz.yaohwu.another.world")) {
                 System.out.println(name + " loaded after agent");
             }
-        }
-    }
-
-    public static void outputClassContentToFile(TypeDescription typeDescription, DynamicType dynamicType, String name) {
-        File file = new File("/Users/yaohwu/mycode/byte-buddy-demo/recompile-code/" + typeDescription.getName() + "." + name + ".class");
-        try {
-            if ((file.exists() && file.delete() && file.createNewFile()) || (!file.exists() && file.createNewFile())) {
-                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-                    fileOutputStream.write(dynamicType.getBytes());
-                    fileOutputStream.flush();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

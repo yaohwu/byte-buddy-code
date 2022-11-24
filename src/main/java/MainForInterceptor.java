@@ -8,6 +8,7 @@ import xyz.yaohwu.another.world.Person;
 import xyz.yaohwu.dynamic.CallInterceptor;
 import xyz.yaohwu.tool.InstrumentationProvider;
 import xyz.yaohwu.tool.InstrumentationProviderImpl;
+import xyz.yaohwu.tool.OutputContent;
 
 import java.lang.instrument.Instrumentation;
 
@@ -40,7 +41,7 @@ public class MainForInterceptor {
                     @Override
                     public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
                         super.onTransformation(typeDescription, classLoader, module, loaded, dynamicType);
-                        Main.outputClassContentToFile(typeDescription, dynamicType, "interceptor");
+                        OutputContent.output(typeDescription, dynamicType, "interceptor");
                     }
                 })
                 // this code block is useless.

@@ -6,7 +6,7 @@ import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.LoadedTypeInitializer;
-import xyz.yaohwu.tool.OutputClassFileContent;
+import xyz.yaohwu.tool.OutputContent;
 
 import java.lang.invoke.MethodHandles;
 import java.util.concurrent.Callable;
@@ -46,7 +46,7 @@ public enum VersionSupporterImpl implements VersionSupporter {
                             ClassFileLocator.Simple.of("xyz.yaohwu.dynamic.ActualCallAdvisor", advisorType.getBytes()),
                             ClassFileLocator.ForClassLoader.of(classLoader)
                     );
-            OutputClassFileContent.output("xyz.yaohwu.dynamic.ActualCallAdvisor", advisorType.getBytes());
+            OutputContent.output("xyz.yaohwu.dynamic.ActualCallAdvisor", advisorType.getBytes());
             advisorTypeDesc = advisorType.getTypeDescription();
             if (advisorTypeDesc == null || fileLocator == null) {
                 System.out.println("try using advisor version failed");
@@ -98,7 +98,7 @@ public enum VersionSupporterImpl implements VersionSupporter {
                             ClassFileLocator.Simple.of("xyz.yaohwu.dynamic.ActualEmptyAdvisor", advisorType.getBytes()),
                             ClassFileLocator.ForClassLoader.of(classLoader)
                     );
-            OutputClassFileContent.output("xyz.yaohwu.dynamic.ActualEmptyAdvisor", advisorType.getBytes());
+            OutputContent.output("xyz.yaohwu.dynamic.ActualEmptyAdvisor", advisorType.getBytes());
             advisorTypeDesc = advisorType.getTypeDescription();
             if (advisorTypeDesc == null || fileLocator == null) {
                 System.out.println("try using empty advisor version failed");

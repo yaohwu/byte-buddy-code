@@ -1,4 +1,5 @@
 *.idea/
 target/
 *.iml
-recompile-code/*.class
+recompile-code
+!recompile-code/.gitkeep

@@ -11,7 +11,7 @@ import xyz.yaohwu.dynamic.CallAdvisor;
 import xyz.yaohwu.dynamic.EmptyCallAdvisor;
 import xyz.yaohwu.tool.InstrumentationProvider;
 import xyz.yaohwu.tool.InstrumentationProviderImpl;
-import xyz.yaohwu.tool.OutputClassFileContent;
+import xyz.yaohwu.tool.OutputContent;
 
 import java.lang.instrument.Instrumentation;
 
@@ -129,6 +129,6 @@ public class MainForCircularity {
     }
 
     private static void outputClassContentToFile(TypeDescription typeDescription, DynamicType dynamicType) {
-        OutputClassFileContent.output(typeDescription.getSimpleName(), dynamicType.getBytes());
+        OutputContent.output(typeDescription.getSimpleName(), dynamicType.getBytes());
     }
 }

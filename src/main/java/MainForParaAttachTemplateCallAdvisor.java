@@ -9,7 +9,7 @@ import xyz.yaohwu.another.world.Bike;
 import xyz.yaohwu.dynamic.VersionSupporterImpl;
 import xyz.yaohwu.tool.InstrumentationProvider;
 import xyz.yaohwu.tool.InstrumentationProviderImpl;
-import xyz.yaohwu.tool.OutputClassFileContent;
+import xyz.yaohwu.tool.OutputContent;
 
 import java.lang.instrument.Instrumentation;
 
@@ -92,6 +92,6 @@ public class MainForParaAttachTemplateCallAdvisor {
     }
 
     private static void outputClassContentToFile(TypeDescription typeDescription, DynamicType dynamicType) {
-        OutputClassFileContent.output(typeDescription.getName(), dynamicType.getBytes());
+        OutputContent.output(typeDescription.getName(), dynamicType.getBytes());
     }
 }
